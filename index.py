@@ -11,7 +11,7 @@ llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-
 
 # Configure prompt parameters and initialise helper
 max_input_size = 2048
-num_output = 128
+num_output = 256
 max_chunk_overlap = 20
 
 prompt_helper = PromptHelper(max_input_size, num_output, max_chunk_overlap)
@@ -23,7 +23,7 @@ index = GPTSimpleVectorIndex(
 )
 
 # Define a simple Streamlit app
-st.title("제보 이용약관에게 물어봐")
+st.title("제보 이용약관 Q&A")
 query = st.text_input("What would you like to ask?", "")
 
 if st.button("Submit"):
