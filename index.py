@@ -10,8 +10,8 @@ from langchain import OpenAI
 llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-002"))
 
 # Configure prompt parameters and initialise helper
-max_input_size = 4096
-num_output = 256
+max_input_size = 2048
+num_output = 128
 max_chunk_overlap = 20
 
 prompt_helper = PromptHelper(max_input_size, num_output, max_chunk_overlap)
