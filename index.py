@@ -3,6 +3,9 @@ import os, streamlit as st
 # Uncomment to specify your OpenAI API key here (local testing only, not in production!), or add corresponding environment variable (recommended)
 # os.environ['OPENAI_API_KEY']= ""
 
+
+from pathlib import Path
+from gpt_index import download_loader
 from llama_index import GPTSimpleVectorIndex, SimpleDirectoryReader, LLMPredictor, PromptHelper
 from langchain import OpenAI
 
@@ -17,13 +20,21 @@ max_chunk_overlap = 20
 prompt_helper = PromptHelper(max_input_size, num_output, max_chunk_overlap)
 
 # Load documents from the 'data' directory
-documents = SimpleDirectoryReader('data').load_data()
+# documents = SimpleDirectoryReader('data').load_data()
+
+
+RDFReader = download_loader("RDFReader")
+
+loader = RDFReader()
+documents = loader.load_data(file=Path('./ot_result_ver02.ttl'))
+
+
 index = GPTSimpleVectorIndex(
     documents, llm_predictor=llm_predictor, prompt_helper=prompt_helper
 )
 
 # Define a simple Streamlit app
-st.title("제보 이용약관 Q&A")
+st.title("ARCO 구술채록 온톨로지")
 query = st.text_input("What would you like to ask?", "")
 
 if st.button("Submit"):
